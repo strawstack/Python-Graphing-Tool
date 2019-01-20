@@ -2,7 +2,7 @@
 
 A tool for quickly visualizing data from a python program
 
-[View a live Demo]()
+[View a live Demo](https://strawstack.github.com/Python-Graphing-Tool)
 
 # Quickstart
 
