@@ -13,7 +13,7 @@ def show(x, y=False):
     out_file   = open(graph_html, 'w')
 
     # read the template and parse in the data
-    template = open("template.html").read().strip()
+    template = open("geegraph/template.html").read().strip()
     x_str = f"[{','.join([str(d) for d in x])}]"
     y_str = f"[{','.join([str(d) for d in y])}]"
 
