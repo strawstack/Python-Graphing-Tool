@@ -1,0 +1,30 @@
+<html>
+<head>
+    <style>
+        html, body {
+            margin:  0px;
+            padding: 0px;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas" width="600" height="600"></canvas>
+    <script>
+        let c = document.getElementById("canvas");
+        let ctx = c.getContext("2d");
+        ctx.moveTo(0, 0);
+        ctx.lineTo(200, 100);
+        ctx.stroke();
+
+        let x = "XXX"
+        let y = "YYY"
+
+        console.log(x);
+        console.log(y);
+    </script>
+</body>
+</html>
