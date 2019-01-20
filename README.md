@@ -23,3 +23,7 @@ A tool for quickly visualizing data from a python program
 5. Use command `geeraph.show([x1, x2, ..., xk], [y1, y2, ..., yk])` or `geeraph.show([(x1, y1), (x2, y2), ..., (xk, yk)])` to create a graph
 
 6. When the `geeraph.show` command is run, a graph of your data will be displayed with a canvas element in your default browser
+
+# Screenshot
+
+![](./screenshot.png)
