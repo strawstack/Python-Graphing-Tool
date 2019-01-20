@@ -9,23 +9,54 @@
             justify-content: center;
             align-items: center;
         }
+        canvas {
+            border: 1px solid #555;
+        }
     </style>
 </head>
 <body>
-    <canvas id="canvas" width="600" height="600"></canvas>
+    <canvas id="canvas" width="640" height="640"></canvas>
     <script>
+        function ytick(x, y) {
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+            ctx.lineTo(x + 5, y);
+            ctx.stroke();
+        }
+        function xtick(x, y) {
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+            ctx.lineTo(x, y + 5);
+            ctx.stroke();
+        }
+        function tickMarks() {
+            let space = 10
+            for (let i=0; margin + i<=600; i += space) xtick(margin + i, 3/2 * margin + H)
+            for (let i=0; margin + i<=600; i += space) ytick(1/2 * margin - 5, 600 - i)
+        }
+
         function point(x, y) {
             ctx.beginPath();
-            ctx.arc(x, y, 3, 0, 2 * Math.PI);
+            ctx.arc(x, y, 1, 0, 2 * Math.PI);
             ctx.stroke();
         }
 
         let c = document.getElementById("canvas");
         let ctx = c.getContext("2d");
+        c.width  = 620
+        c.height = 620
+
+        let margin = 20
+        let W = c.width - 2 * margin
+        let H = c.height - 2 * margin
 
         let x = "XXX"
         let y = "YYY"
 
+        // transform coords
+        y = y.map(p => H - p) // flip vertical
+
+        // get min and max for each coord
         let min_x = Math.min(...x)
         let max_x = Math.max(...x)
         let min_y = Math.min(...y)
@@ -35,14 +66,26 @@
         let x_span = max_x - min_x
         let y_span = max_y - min_y
 
-        let x_shift = min_x * x_scale
-        let y_shift = min_y * y_scale
+        // calculate needed scale for x and y dimensions
+        let x_scale = W/x_span
+        let y_scale = H/y_span
 
-        //x = x.map(p => p * x_scale - x_shift)
-        //y = y.map(p => p * y_scale - y_shift)
+        // get the lesser of the two scales
+        // we must use only one scale to preserve
+        // aspect ratio
+        let scale = Math.min(x_scale, y_scale)
+
+        let x_shift = min_x * scale - margin
+        let y_shift = H - (max_y * scale - margin) // y-coord is upside down
+
+        x = x.map(p => p * scale - x_shift)
+        y = y.map(p => p * scale + y_shift) // opposite shift y-axis is inverted
 
         // draw points
         for (let i=0; i<x.length; i++) point(x[i], y[i])
+
+        // draw tick marks
+        tickMarks()
 
     </script>
 </body>

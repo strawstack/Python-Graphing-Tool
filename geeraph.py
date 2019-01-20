@@ -1,11 +1,12 @@
 import webbrowser
 import os
 
-# NOTE
-# use jninja to load a local html template
-# with the graph data
+def show(x, y=False):
 
-def show(x, y):
+    if not y:
+        t = [p[0] for p in x]
+        y = [p[1] for p in x]
+        x = t
 
     # set up output graph file
     graph_html = "graph.html"
@@ -17,7 +18,7 @@ def show(x, y):
     y_str = f"[{','.join([str(d) for d in y])}]"
 
     # create template with data
-    template = template.replace("\"XXX\"", x_str).replace("\"YYY\"", y_str)    
+    template = template.replace("\"XXX\"", x_str).replace("\"YYY\"", y_str)
     out_file.write(template)
     out_file.close()
 
