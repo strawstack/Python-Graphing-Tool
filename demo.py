@@ -1,4 +1,4 @@
-from geegraph import geeraph
+from geeraph import geeraph
 import math
 
 #

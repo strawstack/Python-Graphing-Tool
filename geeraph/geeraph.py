@@ -9,11 +9,11 @@ def show(x, y=False):
         x = t
 
     # set up output graph file
-    graph_html = "graph.html"
+    graph_html = "geeraph/graph.html"
     out_file   = open(graph_html, 'w')
 
     # read the template and parse in the data
-    template = open("geegraph/template.html").read().strip()
+    template = open("geeraph/template.html").read().strip()
     x_str = f"[{','.join([str(d) for d in x])}]"
     y_str = f"[{','.join([str(d) for d in y])}]"
 
@@ -24,5 +24,5 @@ def show(x, y=False):
 
     # render template in browser
     dir_path = os.path.dirname(os.path.realpath(__file__))
-    url = "file://" + dir_path + "/" + graph_html
+    url = "file://" + dir_path + "/" + "graph.html"
     webbrowser.open_new_tab(url)
