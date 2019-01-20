@@ -30,12 +30,14 @@
             ctx.stroke();
         }
         function tickMarks() {
+            ctx.strokeStyle = "#000000";
             let space = 10
-            for (let i=0; margin + i<=600; i += space) xtick(margin + i, 3/2 * margin + H)
-            for (let i=0; margin + i<=600; i += space) ytick(1/2 * margin - 5, 600 - i)
+            for (let i=0; margin + i<=600 + margin; i += space) xtick(margin + i, 3/2 * margin + H)
+            for (let i=0; margin + i<=600 + margin; i += space) ytick(1/2 * margin - 5, (H + margin) - i)
         }
 
         function point(x, y) {
+            ctx.strokeStyle = "#000000";
             ctx.beginPath();
             ctx.arc(x, y, 1, 0, 2 * Math.PI);
             ctx.stroke();
@@ -43,8 +45,8 @@
 
         let c = document.getElementById("canvas");
         let ctx = c.getContext("2d");
-        c.width  = 620
-        c.height = 620
+        c.width  = 640
+        c.height = 640
 
         let margin = 20
         let W = c.width - 2 * margin
@@ -81,12 +83,59 @@
         x = x.map(p => p * scale - x_shift)
         y = y.map(p => p * scale + y_shift) // opposite shift y-axis is inverted
 
-        // draw points
-        for (let i=0; i<x.length; i++) point(x[i], y[i])
+        function renderGraph() {
+            // draw points
+            for (let i=0; i<x.length; i++) point(x[i], y[i])
 
-        // draw tick marks
-        tickMarks()
+            // draw tick marks
+            tickMarks()
+        }
+        renderGraph()
 
+        // register mouse move event listener
+        c.onmousemove = e => {
+
+            // clear the canvas
+            ctx.clearRect(0, 0, c.width, c.height)
+            renderGraph()
+
+            // get the mouse coords
+            let xc = e.offsetX - 1; // minus one because of border
+            let yc = e.offsetY - 1;
+
+            // draw the crosshairs for the user
+            drawCursorPoint(xc, yc)
+            drawCrossHairs(xc, yc)
+
+            // show the user the current coordinates
+            let ux = xc - margin
+            let uy = H - yc + margin // fliped and adjusted for margin
+
+            displayText(`(${ux}, ${uy})`, xc + ((xc > 3/4*W)?-80:10), yc - 10)
+        }
+        function drawCursorPoint(xc, yc) {
+            ctx.fillStyle = "coral";
+            ctx.beginPath();
+            ctx.arc(xc, yc, 5, 0, 2 * Math.PI);
+            ctx.closePath();
+            ctx.fill();
+        }
+        function drawCrossHairs(xc, yc) {
+            ctx.strokeStyle = "lightcoral";
+            ctx.beginPath();
+            ctx.moveTo(-1, yc);
+            ctx.lineTo(W + 2 * margin, yc);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(xc, -1);
+            ctx.lineTo(xc, H + 2 * margin);
+            ctx.stroke();
+        }
+        function displayText(text, xc, yc) {
+            ctx.fillStyle = "coral";
+            ctx.font = '16px HelveticaNeue-Light';
+            ctx.fillText(text, xc, yc);
+        }
     </script>
 </body>
 </html>
