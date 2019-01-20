@@ -14,17 +14,36 @@
 <body>
     <canvas id="canvas" width="600" height="600"></canvas>
     <script>
+        function point(x, y) {
+            ctx.beginPath();
+            ctx.arc(x, y, 3, 0, 2 * Math.PI);
+            ctx.stroke();
+        }
+
         let c = document.getElementById("canvas");
         let ctx = c.getContext("2d");
-        ctx.moveTo(0, 0);
-        ctx.lineTo(200, 100);
-        ctx.stroke();
 
         let x = "XXX"
         let y = "YYY"
 
-        console.log(x);
-        console.log(y);
+        let min_x = Math.min(...x)
+        let max_x = Math.max(...x)
+        let min_y = Math.min(...y)
+        let max_y = Math.max(...y)
+
+        // scale canvas to fit data
+        let x_span = max_x - min_x
+        let y_span = max_y - min_y
+
+        let x_shift = min_x * x_scale
+        let y_shift = min_y * y_scale
+
+        //x = x.map(p => p * x_scale - x_shift)
+        //y = y.map(p => p * y_scale - y_shift)
+
+        // draw points
+        for (let i=0; i<x.length; i++) point(x[i], y[i])
+
     </script>
 </body>
 </html>
