@@ -1,4 +1,4 @@
-# geeraph
+# GeeGraph
 
 A tool for quickly visualizing data from a python program
 
