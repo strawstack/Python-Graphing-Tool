@@ -2,7 +2,7 @@
 
 A tool for quickly visualizing data from a python program
 
-[View a live Demo](https://strawstack.github.com/Python-Graphing-Tool)
+[View a live Demo](https://regularmemory.blog/PythonGraphingTool/)
 
 # Quickstart
 
@@ -26,4 +26,4 @@ A tool for quickly visualizing data from a python program
 
 # Screenshot
 
-![](./screenshot.png)
+[![](./screenshot.png)](https://regularmemory.blog/PythonGraphingTool/)
